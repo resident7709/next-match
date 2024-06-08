@@ -2,9 +2,9 @@
 
 import bcrypt from 'bcryptjs';
 import { AuthError } from 'next-auth';
-import { User } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
+import { User } from '@prisma/client';
 import { ActionResult } from '@/types';
 import { signIn, signOut } from '@/auth';
 import { LoginSchema } from '@/lib/schemas/loginSchema';
