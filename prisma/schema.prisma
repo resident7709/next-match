@@ -34,8 +34,9 @@ model User {
   emailVerified DateTime? @map("email_verified")
   passwordHash  String
   image         String?
-  accounts      Account[]
-  member        Member?
+
+  accounts Account[]
+  member   Member?
 
   @@map("users")
 }
@@ -63,16 +64,16 @@ model Photo {
   id       String  @id @default(cuid())
   url      String
   publicId String?
-
   memberId String
-  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
 }
 
 model Like {
   sourceUserId String
-  sourceMember Member @relation("source", fields: [sourceUserId], references: [userId], onDelete: Cascade)
-
   targetUserId String
+
+  sourceMember Member @relation("source", fields: [sourceUserId], references: [userId], onDelete: Cascade)
   targetMember Member @relation("target", fields: [targetUserId], references: [userId], onDelete: Cascade)
 
   @@id([sourceUserId, targetUserId])

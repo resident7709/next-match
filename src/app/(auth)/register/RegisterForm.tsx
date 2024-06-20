@@ -5,6 +5,7 @@ import { GiPadlock } from 'react-icons/gi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardHeader, CardBody, Button, Input } from '@nextui-org/react';
 
+import { handleFormServerErrors } from '@/lib/util';
 import { registerUser } from '@/app/actions/authActions';
 import { registerSchema, RegisterSchema } from '@/lib/schemas/registerSchema';
 
@@ -15,7 +16,7 @@ export default function RegisterForm() {
     setError,
     formState: { errors, isValid, isSubmitting },
   } = useForm<RegisterSchema>({
-    // resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema),
     mode: 'onTouched',
   });
 
@@ -25,14 +26,7 @@ export default function RegisterForm() {
     if (result.status === 'success') {
       console.log('User registered successfully');
     } else {
-      if (Array.isArray(result.error)) {
-        result.error.forEach(e => {
-          const fieldName = e.path.join('.') as 'email' | 'name' | 'password';
-          setError(fieldName, { message: e.message });
-        });
-      } else {
-        setError('root.serverError', { message: result.error });
-      }
+      handleFormServerErrors(result, setError);
     }
   };
 
