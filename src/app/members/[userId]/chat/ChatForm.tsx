@@ -40,8 +40,8 @@ export default function ChatForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
-      <div className=' flex items-center gap-2'>
+    <form onSubmit={handleSubmit(onSubmit)} className='w-full mb-6 pt-6'>
+      <div className='flex items-center gap-2'>
         <Input
           fullWidth
           placeholder='Type a message'
